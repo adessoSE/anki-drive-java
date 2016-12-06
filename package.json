@@ -1,0 +1,19 @@
+{
+  "name": "anki-connector",
+  "version": "0.0.1",
+  "description": "",
+  "main": "src/main/nodejs/server.js",
+  "scripts": {
+    "start": "node --harmony --harmony_array_includes src/main/nodejs/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://scm.adesso.de/scm/git/adesso/InVerSiV-Showcase"
+  },
+  "author": "Yannick Eckey",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "mqtt": "^2.0.1",
+    "noble": "^1.6.0"
+  }
+}

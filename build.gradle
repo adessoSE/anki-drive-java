@@ -1,0 +1,38 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+  
+  dependencies {
+    classpath 'com.moowork.gradle:gradle-node-plugin:0.13'
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.moowork.node'
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile 'org.reflections:reflections:0.9.10'
+}
+
+node {
+  version = '4.4.7'
+  npmVersion = '3.10.5'
+  distBaseUrl = 'https://nodejs.org/dist'
+  download = true
+
+  workDir = file("${project.buildDir}/nodejs")
+  nodeModulesDir = file("${project.projectDir}")
+}
+
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+processResources.dependsOn(['npmInstall'])

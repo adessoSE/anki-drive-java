@@ -1,0 +1,8 @@
+# anki-connector
+node_modules/**
+.gradle/**
+build/**
+bin/**
+.classpath
+.project
+.settings/**

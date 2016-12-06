@@ -1,0 +1,60 @@
+# Anki Drive SDK for Java
+
+The Anki Drive SDK for Java is an implementation of the message protocols
+and data parsing routines necessary for communicating with Anki Drive vehicles.
+
+*See [anki/drive-sdk](https://github.com/anki/drive-sdk) for the official
+SDK written in C.*
+
+### Disclaimer
+The authors of this software are in no way affiliated to Anki.
+All naming rights for Anki, Anki Drive and Anki Overdrive are property of
+[Anki](http://anki.com).
+
+## About
+
+Unfortunately, there is currently no cross-platform Java library to interface
+with Bluetooth LE devices.
+
+This project therefore requires a Node.js gateway service to handle low-level
+communication with the Anki vehicles. All data processing and message parsing
+is carried out in Java code.
+
+## Prerequisites
+
+To build and use the SDK in your own project you will need:
+
+- Java JDK (>= 1.8.0)
+- a compatible Bluetooth 4.0 interface with LE support
+
+## Installation
+
+To install the SDK and all required dependencies run the following commands:
+
+```
+git clone https://github.com/yeckey/anki-drive-java
+cd anki-drive-java
+./gradlew build
+```
+
+## Usage
+
+Start the Node.js gateway service:
+```
+./gradlew npm_run
+```
+
+Include this library in your project and create a AnkiConnector object:
+```java
+AnkiConnector anki = new AnkiConnector("localhost", 5000);
+```
+
+Start scanning for vehicles:
+```java
+List<Vehicle> vehicles = anki.findVehicles();
+```
+
+## Contributing
+
+Contributions are always welcome! Feel free to fork this repository and submit
+a pull request.

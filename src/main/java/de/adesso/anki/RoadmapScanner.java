@@ -28,7 +28,7 @@ public class RoadmapScanner {
         (message) -> handleTransitionUpdate(message)
     );
     
-    vehicle.sendMessage(new SetSpeedMessage(500, 12500));
+    vehicle.sendMessage(new SetSpeedMessage(300, 12500));
   }
   
   public void stopScanning() {

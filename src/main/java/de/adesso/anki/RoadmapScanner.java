@@ -44,7 +44,8 @@ public class RoadmapScanner {
   }
   
   public void reset(){
-	  roadmap = new Roadmap();
+	  this.roadmap = new Roadmap();
+	  this.lastPosition = null;
   }
 
   private void handlePositionUpdate(LocalizationPositionUpdateMessage message) {

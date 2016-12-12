@@ -7,8 +7,9 @@ public class VehicleInfoMessage extends Message {
 
 	boolean charging;
 	boolean onTrack;
-	
-	//TODO: There are two more unknown bytes...
+	// TODO: we don't know the meaning of the following 2 bytes...
+	byte _reserved1;
+	byte _reserved2;
 
 	public VehicleInfoMessage() {
 		this.type = TYPE;
@@ -18,6 +19,8 @@ public class VehicleInfoMessage extends Message {
 	protected void parsePayload(ByteBuffer buffer) {
 		this.onTrack = getBoolean(buffer);
 		this.charging = getBoolean(buffer);
+		this._reserved1 = buffer.get();
+		this._reserved2 = buffer.get();
 	}
 
 	private boolean getBoolean(ByteBuffer buffer) {
@@ -27,11 +30,14 @@ public class VehicleInfoMessage extends Message {
 	@Override
 	protected void preparePayload(ByteBuffer buffer) {
 		putBoolean(buffer, onTrack);
+		putBoolean(buffer, charging);
+		buffer.put(_reserved1);
+		buffer.put(_reserved2);
 	}
 
 	private void putBoolean(ByteBuffer buffer, boolean boolValue) {
 		byte value = 0x00;
-		if(boolValue){
+		if (boolValue) {
 			value = 0x01;
 		}
 		buffer.put(value);

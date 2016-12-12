@@ -1,4 +1,4 @@
-package de.adesso.anki.roadpieces;
+package de.adesso.anki.roadmap.roadpieces;
 
 import de.adesso.anki.roadmap.Position;
 import de.adesso.anki.roadmap.Section;

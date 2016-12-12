@@ -1,4 +1,4 @@
-package de.adesso.anki.roadpieces;
+package de.adesso.anki.roadmap.roadpieces;
 
 import java.util.Arrays;
 import java.util.List;
@@ -7,14 +7,12 @@ import java.util.Set;
 import org.reflections.Reflections;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-
 import de.adesso.anki.roadmap.Position;
 import de.adesso.anki.roadmap.Roadmap;
 import de.adesso.anki.roadmap.Section;
 
 public abstract class Roadpiece {
-  private final static Reflections reflections = new Reflections("de.adesso.anki.roadpieces");
+  private final static Reflections reflections = new Reflections("de.adesso.anki.roadmap.roadpieces");
   
   private Position position;
   protected Section section;
@@ -59,7 +57,7 @@ public abstract class Roadpiece {
     return reverse ? section.reverse() : section;
   }
   
-  
+  //TODO: This should be a Unit-Test...
   public static void main(String[] args) {
     
     Roadmap map = new Roadmap();

@@ -1,12 +1,9 @@
 package de.adesso.anki;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.Thread.State;
 import java.util.ArrayList;
-import java.util.EventListener;
 import java.util.concurrent.CountDownLatch;
 
 /**

@@ -7,8 +7,6 @@ import java.util.Set;
 import org.reflections.Reflections;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-
 import de.adesso.anki.roadmap.Position;
 import de.adesso.anki.roadmap.Roadmap;
 import de.adesso.anki.roadmap.Section;

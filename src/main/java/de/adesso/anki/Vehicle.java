@@ -1,13 +1,7 @@
 package de.adesso.anki;
 
-import java.io.IOException;
 import java.time.LocalTime;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-
 import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 
 import de.adesso.anki.messages.Message;
@@ -110,12 +104,7 @@ public class Vehicle {
   }
   
   public Vehicle(AnkiConnector anki, String address, String manufacturerData, String localName) {
-    try {
-      this.anki = new AnkiConnector("localhost", 5000);
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    this.anki = anki;
     this.address = address;
     this.advertisement = new AdvertisementData(manufacturerData, localName);
     

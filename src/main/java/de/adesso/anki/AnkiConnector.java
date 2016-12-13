@@ -38,7 +38,7 @@ public class AnkiConnector {
     this(host, 5000);
   }
   
-  public List<Vehicle> findVehicles() {
+  public synchronized List<Vehicle> findVehicles() {
     writer.println("SCAN");
     List<Vehicle> foundVehicles = new ArrayList<>();
     boolean expectingResponse = true;
@@ -61,7 +61,7 @@ public class AnkiConnector {
     return foundVehicles;
   }
 
-  public void connect(Vehicle vehicle) throws InterruptedException {
+  public synchronized void connect(Vehicle vehicle) throws InterruptedException {
     writer.println("CONNECT;"+vehicle.getAddress());
     String response = reader.waitFor("CONNECT;");
     
@@ -98,7 +98,7 @@ public class AnkiConnector {
     }
   }
 
-  public void disconnect(Vehicle vehicle) {
+  public synchronized void disconnect(Vehicle vehicle) {
     writer.println("DISCONNECT;"+vehicle.getAddress());
     reader.waitFor("DISCONNECT;");
   }

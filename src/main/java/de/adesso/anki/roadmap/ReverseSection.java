@@ -1,6 +1,6 @@
 package de.adesso.anki.roadmap;
 
-import de.adesso.anki.roadpieces.Roadpiece;
+import de.adesso.anki.roadmap.roadpieces.Roadpiece;
 
 public class ReverseSection extends Section {
 

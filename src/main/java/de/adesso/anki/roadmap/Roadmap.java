@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import de.adesso.anki.roadpieces.Roadpiece;
+import de.adesso.anki.roadmap.roadpieces.Roadpiece;
 
 public class Roadmap {
   

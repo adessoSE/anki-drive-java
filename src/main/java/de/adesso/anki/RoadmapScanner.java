@@ -42,12 +42,17 @@ public class RoadmapScanner {
   public Roadmap getRoadmap() {
     return roadmap;
   }
+  
+  public void reset(){
+	  this.roadmap = new Roadmap();
+	  this.lastPosition = null;
+  }
 
   private void handlePositionUpdate(LocalizationPositionUpdateMessage message) {
     lastPosition = message;
   }
 
-  private void handleTransitionUpdate(LocalizationTransitionUpdateMessage message) {
+  protected void handleTransitionUpdate(LocalizationTransitionUpdateMessage message) {
     if (lastPosition != null) {
       roadmap.add(
           lastPosition.getRoadPieceId(),

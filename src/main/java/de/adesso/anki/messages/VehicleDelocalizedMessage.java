@@ -11,8 +11,4 @@ public class VehicleDelocalizedMessage extends Message {
   public VehicleDelocalizedMessage() {
     this.type = TYPE;
   }
-  
-  public String toMqttString(){
-	  return "true";
-  }
 }

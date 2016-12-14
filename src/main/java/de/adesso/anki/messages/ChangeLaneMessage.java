@@ -68,8 +68,4 @@ public class ChangeLaneMessage extends Message {
     buffer.put((byte) (this.hopIntent ? 1 : 0));
     buffer.put((byte) this.tag);
   }
-  
-  public String toMqttString(){
-	  return "changeLane:"+offsetFromCenter+":"+horizontalSpeed+":"+horizontalAcceleration;
-  }
 }

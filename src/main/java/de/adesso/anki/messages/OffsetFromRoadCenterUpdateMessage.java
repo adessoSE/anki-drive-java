@@ -28,8 +28,4 @@ public class OffsetFromRoadCenterUpdateMessage extends Message {
     buffer.putFloat(this.offsetFromRoadCenter);
     buffer.put((byte) this.laneChangeId);
   }
-  
-  public String toMqttString(){
-	  return offsetFromRoadCenter+":"+laneChangeId;
-  }
 }

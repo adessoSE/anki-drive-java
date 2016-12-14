@@ -12,8 +12,4 @@ public class BatteryLevelRequestMessage extends Message {
   public BatteryLevelRequestMessage() {
     this.type = TYPE;
   }
-  
-  public String toMqttString(){
-	  return "requestBattery";
-  }
 }

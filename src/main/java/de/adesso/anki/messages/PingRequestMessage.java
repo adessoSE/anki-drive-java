@@ -11,8 +11,4 @@ public class PingRequestMessage extends Message {
   public PingRequestMessage() {
     this.type = TYPE;
   }
-  
-  public String toMqttString(){
-	  return "ping";
-  }
 }

@@ -11,8 +11,4 @@ public class CancelLaneChangeMessage extends Message {
   public CancelLaneChangeMessage() {
     this.type = TYPE;
   }
-  
-  public String toMqttString(){
-	  return "cancelLaneChange";
-  }
 }

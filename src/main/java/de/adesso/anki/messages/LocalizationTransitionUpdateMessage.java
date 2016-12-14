@@ -134,23 +134,4 @@ public class LocalizationTransitionUpdateMessage extends Message {
     return rightWheelDistance;
   }
   
-  public String toMqttString(){
-	  return this.roadPieceId +":"+
-	    this.prevRoadPieceId +":"+
-	    this.offsetFromRoadCenter +":"+
-	    
-	    this.drivingDirection +":"+
-	    
-	    this.lastReceivedLaneChangeId +":"+
-	    this.lastExecutedLaneChangeId +":"+
-	    this.lastDesiredHorizontalSpeed +":"+
-	    this.lastDesiredSpeed +":"+
-
-	    this.uphillCounter +":"+
-	    this.downhillCounter +":"+
-
-	    this.leftWheelDistance +":"+
-	    this.rightWheelDistance;
-  }
-  
 }

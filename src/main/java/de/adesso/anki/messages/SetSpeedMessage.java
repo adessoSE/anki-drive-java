@@ -38,8 +38,4 @@ public class SetSpeedMessage extends Message {
     this.acceleration = buffer.getShort();
     this.respectRoadPieceSpeedLimit = buffer.get() == 1;
   }
-  
-  public String toMqttString(){
-	  return "setSpeed:"+speed+":"+acceleration;
-  }
 }

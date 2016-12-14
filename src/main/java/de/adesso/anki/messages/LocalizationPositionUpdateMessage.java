@@ -109,18 +109,5 @@ public class LocalizationPositionUpdateMessage extends Message {
     return (parsingFlags & 0x40) == 0x40;
   }
   
-  public String toMqttString(){
-	  return this.locationId +":"+
-	    this.roadPieceId +":"+
-	    this.offsetFromRoadCenter +":"+
-	    this.speed +":"+
-	    this.parsingFlags +":"+
-	    
-	    this.lastReceivedLaneChangeId +":"+
-	    this.lastExecutedLaneChangeId +":"+
-	    this.lastDesiredHorizontalSpeed +":"+
-	    this.lastDesiredSpeed;
-  }
-  
   
 }

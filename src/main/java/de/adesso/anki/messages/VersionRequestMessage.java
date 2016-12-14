@@ -12,8 +12,4 @@ public class VersionRequestMessage extends Message {
   public VersionRequestMessage() {
     this.type = TYPE;
   }
-  
-  public String toMqttString(){
-	  return "requestVersion";
-  }
 }

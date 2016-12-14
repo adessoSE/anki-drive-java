@@ -35,8 +35,4 @@ public class BatteryLevelResponseMessage extends Message {
   protected void preparePayload(ByteBuffer buffer) {
     buffer.put((byte) batteryLevel);
   }
-  
-  public String toMqttString(){
-	  return ""+batteryLevel;
-  }
 }

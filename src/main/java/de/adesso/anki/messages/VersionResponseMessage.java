@@ -26,8 +26,4 @@ public class VersionResponseMessage extends Message {
   protected void preparePayload(ByteBuffer buffer) {
     buffer.putShort((short) this.version);
   }
-  
-  public String toMqttString(){
-	  return ""+version;
-  }
 }

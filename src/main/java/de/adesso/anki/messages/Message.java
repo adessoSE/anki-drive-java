@@ -97,10 +97,6 @@ public class Message {
         .add("payload", payload == null ? null : DatatypeConverter.printHexBinary(payload))
         .toString();
   }
-  
-  public String toMqttString(){
-	  return toString();
-  }
 
   protected void parsePayload(ByteBuffer buffer) {
     this.payload = new byte[buffer.remaining()];

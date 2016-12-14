@@ -83,14 +83,4 @@ public class LocalizationIntersectionUpdateMessage extends Message {
     return isExiting;
   }
   
-  public String toMqttString(){
-	  return this.roadPieceId +":"+
-	    this.offsetFromRoadCenter +":"+
-
-	    this.drivingDirection +":"+
-	    this.intersectionCode +":"+
-	    this.intersectionTurn +":"+
-	    this.isExiting;
-  }
-  
 }

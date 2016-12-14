@@ -20,6 +20,8 @@ import de.adesso.anki.messages.Message;
 public class AnkiConnector {
   
   private Socket socket;
+  private final String host;
+  private final int port;
   
   private PrintWriter writer;
   private NotificationReader reader;
@@ -27,6 +29,8 @@ public class AnkiConnector {
   private Multimap<Vehicle, MessageListener> listeners;
   
   public AnkiConnector(String host, int port) throws IOException {
+	this.host = host;
+	this.port = port;
     socket = new Socket(host, port);
     writer = new PrintWriter(socket.getOutputStream(), true);
     reader = new NotificationReader(socket.getInputStream());
@@ -36,6 +40,10 @@ public class AnkiConnector {
   
   public AnkiConnector(String host) throws IOException {
     this(host, 5000);
+  }
+  
+  public AnkiConnector(AnkiConnector anki) throws IOException{
+	  this(anki.host, anki.port);
   }
   
   public synchronized List<Vehicle> findVehicles() {

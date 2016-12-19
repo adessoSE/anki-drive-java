@@ -61,7 +61,7 @@ public class AnkiConnector {
     return foundVehicles;
   }
 
-  public synchronized void connect(Vehicle vehicle) throws InterruptedException {
+  synchronized void connect(Vehicle vehicle) throws InterruptedException {
     writer.println("CONNECT;"+vehicle.getAddress());
     String response = reader.waitFor("CONNECT;");
     
@@ -78,27 +78,27 @@ public class AnkiConnector {
     });
   }
   
-  public synchronized void sendMessage(Vehicle vehicle, Message message) {
+  synchronized void sendMessage(Vehicle vehicle, Message message) {
     writer.println(vehicle.getAddress() + ";" + message.toHex());
     writer.flush();
   }
   
-  public void addMessageListener(Vehicle vehicle, MessageListener<? extends Message> listener) {
+  void addMessageListener(Vehicle vehicle, MessageListener<? extends Message> listener) {
     listeners.put(vehicle, listener);
   }
   
-  public void removeMessageListener(Vehicle vehicle, MessageListener<? extends Message> listener) {
+  void removeMessageListener(Vehicle vehicle, MessageListener<? extends Message> listener) {
     listeners.remove(vehicle, listener);
   }
   
   @SuppressWarnings("unchecked")
-  public void fireMessageReceived(Vehicle vehicle, Message message) {
+  void fireMessageReceived(Vehicle vehicle, Message message) {
     for (MessageListener l : listeners.get(vehicle)) {
       l.messageReceived(message);
     }
   }
 
-  public synchronized void disconnect(Vehicle vehicle) {
+  synchronized void disconnect(Vehicle vehicle) {
     writer.println("DISCONNECT;"+vehicle.getAddress());
     reader.waitFor("DISCONNECT;");
   }

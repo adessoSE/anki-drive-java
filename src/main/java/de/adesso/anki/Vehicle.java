@@ -122,4 +122,17 @@ public class Vehicle {
   public String getColor() {
     return advertisement.getModel().getColor();
   }
+  
+  @Override
+  public int hashCode() {
+	return address.hashCode();
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if(obj instanceof Vehicle){
+    	return ((Vehicle) obj).getAddress().equals(this.getAddress());
+    }
+    return false;
+  }
 }

@@ -42,7 +42,9 @@ public class LocalizationTransitionUpdateMessage extends Message {
     this.prevRoadPieceId = Byte.toUnsignedInt(buffer.get());
     this.offsetFromRoadCenter = buffer.getFloat();
     
-    this.drivingDirection = Byte.toUnsignedInt(buffer.get());
+    // Anki removed this field in the latest API version
+    if (buffer.remaining() == 11)
+      this.drivingDirection = Byte.toUnsignedInt(buffer.get());
     
     this.lastReceivedLaneChangeId = Byte.toUnsignedInt(buffer.get());
     this.lastExecutedLaneChangeId = Byte.toUnsignedInt(buffer.get());

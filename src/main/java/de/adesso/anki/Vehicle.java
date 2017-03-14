@@ -1,5 +1,6 @@
 package de.adesso.anki;
 
+import java.io.IOException;
 import java.time.LocalTime;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -21,6 +22,7 @@ public class Vehicle {
   private AnkiConnector anki;
   
   private Multimap<Class<? extends Message>, MessageListener> listeners;
+  private MessageListener defaultListener;
   
   public String getAddress() {
     return address;
@@ -45,7 +47,7 @@ public class Vehicle {
   public void connect() {
     try {
       int count = 0;
-      int maxTries = 20;
+      int maxTries = 5;
       boolean connected = false;
       
       while (!connected) {
@@ -62,10 +64,12 @@ public class Vehicle {
       e.printStackTrace();
     }
     
-    anki.addMessageListener(this, (message) -> fireMessageReceived(message));
+    defaultListener = (message) -> fireMessageReceived(message);
+    anki.addMessageListener(this, defaultListener);
   }
   
   public void disconnect() {
+	anki.removeMessageListener(this, defaultListener);
     anki.disconnect(this);
   }
   
@@ -104,7 +108,11 @@ public class Vehicle {
   }
   
   public Vehicle(AnkiConnector anki, String address, String manufacturerData, String localName) {
-    this.anki = anki;
+    try {
+		this.anki = new AnkiConnector(anki);
+	} catch (IOException e) {
+		this.anki = anki;
+	}
     this.address = address;
     this.advertisement = new AdvertisementData(manufacturerData, localName);
     
@@ -113,5 +121,18 @@ public class Vehicle {
 
   public String getColor() {
     return advertisement.getModel().getColor();
+  }
+  
+  @Override
+  public int hashCode() {
+	return address.hashCode();
+  }
+  
+  @Override
+  public boolean equals(Object obj) {
+    if(obj instanceof Vehicle){
+    	return ((Vehicle) obj).getAddress().equals(this.getAddress());
+    }
+    return false;
   }
 }

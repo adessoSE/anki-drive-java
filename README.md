@@ -44,7 +44,26 @@ Start the Node.js gateway service:
 ./gradlew npm_run
 ```
 
-Include this library in your project and create a AnkiConnector object:
+### Add the Java library
+
+To get the Java library into your build:
+```gradle
+// add JitPack.io as a repository
+repositories {
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // <Git commit-ish>: commit hash or tag
+    compile 'com.github.adessoAG:anki-drive-java:<Git commit-ish>'
+}
+```
+
+For the Maven instructions see the (JitPack.io website)[https://jitpack.io/#adessoAG/anki-drive-java].
+
+### API usage
+
+Create a AnkiConnector object:
 ```java
 AnkiConnector anki = new AnkiConnector("localhost", 5000);
 ```

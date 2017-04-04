@@ -59,7 +59,7 @@ dependencies {
 }
 ```
 
-For the Maven instructions see the (JitPack.io website)[https://jitpack.io/#adessoAG/anki-drive-java].
+For the Maven instructions see the [JitPack.io website](https://jitpack.io/#adessoAG/anki-drive-java).
 
 ### API usage
 

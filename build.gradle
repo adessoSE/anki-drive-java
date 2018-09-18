@@ -4,7 +4,7 @@ buildscript {
   }
   
   dependencies {
-    classpath 'com.moowork.gradle:gradle-node-plugin:0.13'
+    classpath 'com.moowork.gradle:gradle-node-plugin:1.1.0' //was 0.13
   }
 }
 
@@ -22,8 +22,8 @@ dependencies {
 }
 
 node {
-  version = '4.4.7'
-  npmVersion = '3.10.5'
+  version = '8.12.0'//'4.4.7'
+  npmVersion = '6.4.1'//'3.10.5'
   distBaseUrl = 'https://nodejs.org/dist'
   download = true
 

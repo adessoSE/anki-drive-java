@@ -41,7 +41,7 @@ cd anki-drive-java
 
 Start the Node.js gateway service:
 ```
-./gradlew npm_run
+./gradlew server
 ```
 
 ### Add the Java library
@@ -71,6 +71,12 @@ AnkiConnector anki = new AnkiConnector("localhost", 5000);
 Start scanning for vehicles:
 ```java
 List<Vehicle> vehicles = anki.findVehicles();
+```
+
+### Test File
+To try a connection, start the server and run the class:
+```java
+edu.oswego.cs.CPSLab.anki.AnkiConnectionTest
 ```
 
 ## Contributing

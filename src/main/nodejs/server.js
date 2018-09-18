@@ -6,7 +6,7 @@ var server = net.createServer(function(client) {
   client.vehicles = [];
 
   client.on("error", (err) => {
-    console.log("connection error"); // client disconnected?
+    console.log("connection error (client disconnected?)"); // client disconnected?
     client.vehicles.forEach((vehicle) => vehicle.disconnect());
   });
   client.on("data", function(data) {
@@ -60,8 +60,11 @@ var server = net.createServer(function(client) {
 	            ["be15beef6186407e83810bd89c4d8df4"],
 	            ["be15bee06186407e83810bd89c4d8df4", "be15bee16186407e83810bd89c4d8df4"],
 	            function(error, services, characteristics) {
-	              vehicle.reader = characteristics.find(x => !x.properties.includes("write"));
-	              vehicle.writer = characteristics.find(x => x.properties.includes("write"));
+		      //  console.log("!!!!!!!!!!!!!!!!!");
+                      //  console.log(characteristics);
+		      //  console.log("!!!!!!!!!!!!!!!!!");
+	              vehicle.reader = characteristics[1];//.find(x => !x.properties.includes("write"));
+	              vehicle.writer = characteristics[0];//.find(x => x.properties.includes("write"));
 	
 	              vehicle.reader.notify(true);
 	              vehicle.reader.on('read', function(data, isNotification) {
@@ -79,7 +82,7 @@ var server = net.createServer(function(client) {
 	      setTimeout(() => {
 	        if (!success) {
 	      	  client.write("CONNECT;ERROR\n");
-	          console.log("connect error");
+	          console.log("connect error (timeout)");
 	        }
 	      }, 500);
 	
@@ -113,4 +116,4 @@ var server = net.createServer(function(client) {
 
 server.listen(5000);
 
-console.log("Server gestartet")
+console.log("Server started")

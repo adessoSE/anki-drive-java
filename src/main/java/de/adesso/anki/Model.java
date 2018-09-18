@@ -4,9 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Enumerates all currently known Anki vehicle models.
- *
+ * Enumerates some currently known Anki vehicle models.
+ * Known vehicles currently available, but not considered in this class:
+ * Supercars:
+ * - NUKE Phantom
+ * - Fast & Furious Dom's Charger
+ * - Fast & Furious Hobbs' MXT
+ * Supertrucks:
+ * - X52 (probably ID 0x10).
+ * 
  * @author Yannick Eckey <yannick.eckey@adesso.de>
+ * @author B. Tenbergen <bastian.tenbergen@oswego.edu>
  */
 public enum Model {
   KOURAI(0x01),
@@ -21,7 +29,11 @@ public enum Model {
   THERMO(0x0a, "#a11c20"),
   NUKE(0x0b, "#bed62f"),
   GUARDIAN(0x0d, "#42b1d7"),
-  BIGBANG(0x0e, "#4e674d");
+  BIGBANG(0x0e, "#4e674d"),
+  FREEHWEEL(0x0f),              //BT update on 9/14/18 to add new supertruck
+//  __SOMECAR1(0x10),             //TODO: figure out which car this is (BT)... probably X52
+  X52ICE(0x11);                 //BT update on 9/14/18 to add new supertruck
+//  __SOMECAR3(0x12);             //TODO: figure out which car this is (BT)
   
   private int id;
   private String color = "#f00";

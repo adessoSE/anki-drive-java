@@ -9,7 +9,9 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'application'
 apply plugin: 'com.moowork.node'
+mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
 
 repositories {
   jcenter()
@@ -33,6 +35,11 @@ task fatJar(type: Jar) {
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
+}
+
+task server(type: NodeTask) {
+    script = file('src/main/nodejs/server.js')
+    ignoreExitValue = true
 }
 
 processResources.dependsOn(['npmInstall'])

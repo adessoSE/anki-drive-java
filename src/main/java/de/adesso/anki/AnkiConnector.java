@@ -76,11 +76,13 @@ public class AnkiConnector {
   synchronized void connect(Vehicle vehicle) throws InterruptedException {
     writer.println("CONNECT;"+vehicle.getAddress());
     String response = reader.waitFor("CONNECT;");
-    
+
+/*  commented out because it caused connections to fail every other call  
     if (response.equals("CONNECT;ERROR")) {
       throw new RuntimeException("connect failed");
     }
-    
+  */
+
     NotificationListener carsNotificationListener = (line) -> {
         if (line.startsWith(vehicle.getAddress())) {
           String messageString = line.replaceFirst(vehicle.getAddress()+";", "");

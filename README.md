@@ -32,9 +32,16 @@ To build and use the SDK in your own project you will need:
 To install the SDK and all required dependencies run the following commands:
 
 ```
-git clone https://github.com/yeckey/anki-drive-java
+git clone https://github.com/adessoAG/anki-drive-java
 cd anki-drive-java
 ./gradlew build
+```
+
+### On Linux
+
+Optional Dependency node-usb will not be installed. Instead, install
+```
+sudo apt-get install libudev-dev
 ```
 
 ## Usage

@@ -43,6 +43,7 @@ task server(type: NodeTask) {
 }
 
 task installLibUdev(type:Exec) {
+    println "OS is UNIX family. Installing libudev-dev..."
     commandLine 'sudo apt-get install libudev-dev'
 }
 

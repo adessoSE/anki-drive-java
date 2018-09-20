@@ -39,7 +39,7 @@ cd anki-drive-java
 
 ### On Linux
 
-Optional Dependency node-usb will not be installed. Instead, install
+Optional Dependency node-usb will not be installed. So, run:
 ```
 sudo apt-get install libudev-dev
 ```

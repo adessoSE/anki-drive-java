@@ -15,13 +15,11 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * A simple test program to test a connection to your Anki 'Supercars' and 'Supertrucks' using the NodeJS Bluetooth gateway.
+ * Simple follow the installation instructions at http://github.com/adessoAG/anki-drive-java, build this project, start the
+ * bluetooth gateway using ./gradlew server, and run this class.
+ * 
  * @author Bastian Tenbergen (bastian.tenbergen@oswego.edu)
  */
 public class AnkiConnectionTest {

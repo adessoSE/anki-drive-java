@@ -42,4 +42,14 @@ task server(type: NodeTask) {
     ignoreExitValue = true
 }
 
+task installLibUdev(type:Exec) {
+    commandLine 'sudo apt-get install libudev-dev'
+}
+
+installLibUdev.onlyIf { org.gradle.nativeplatform.platform.OperatingSystem.isLinux() }
+
+build.doFirst {
+    installLibUdev
+}
+
 processResources.dependsOn(['npmInstall'])

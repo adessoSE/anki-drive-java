@@ -40,6 +40,7 @@ public class Vehicle {
     this.advertisement = advertisement;
   }
 
+  @Override
   public String toString() {
     return advertisement.toString();
   }

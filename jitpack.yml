@@ -6,7 +6,6 @@ addons:
     - libudev-dev
 
 before_install:
-    - npm install -g mkdirp
 #  - apt-get update
 #  - apt-get install -y libudev-dev
 

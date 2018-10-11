@@ -1,6 +1,13 @@
-before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y libudev-dev
+sudo: required
+dist: precise
+addons:
+  apt:
+    packages:
+    - libudev-dev
+    
+#before_install:
+#  - sudo apt-get update
+#  - sudo apt-get install -y libudev-dev
 
 language: java
 jdk:

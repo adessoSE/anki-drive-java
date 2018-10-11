@@ -1,17 +1,13 @@
-sudo:
-    - required
-os:
-    - osx
+sudo: required
+dist: precise
 addons:
   apt:
     packages:
-    - cmake
-    - time
     - libudev-dev
 
-before_install:
-  - apt-get update
-  - apt-get install -y libudev-dev
+#before_install:
+#  - apt-get update
+#  - apt-get install -y libudev-dev
 
 language: java
 jdk:

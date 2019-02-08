@@ -27,8 +27,8 @@ dependencies {
 }
 
 node {
-  version = '10.15.1'//was '8.12.0'// was '4.4.7'
-  npmVersion = '6.7.0'// was '6.4.1'// was '3.10.5'
+  version = '8.12.0'// was '4.4.7'
+  npmVersion = '6.4.1'// was '3.10.5'
   distBaseUrl = 'https://nodejs.org/dist'
   download = true
 

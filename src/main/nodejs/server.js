@@ -16,9 +16,11 @@ var server = net.createServer(function(client) {
 	    console.log(command)
 	  switch(command[0])
 	  {
-	    case "SCAN":
+          case "SCAN":
 	      console.log(noble);
-	      if (noble.state === 'poweredOn') {
+// Bastian Tenbergen: removed - node never seems to show this state.
+// However, causes AnkiConnector to get NullPointerExceptions sometimes.
+//	      if (noble.state === 'poweredOn') {
 	        var discover = function(device) {
                                 //Peter Muir: edited to more reliably connect to the cars. Hardcoded localName
 				//and txPowerLevel. Should change to a dynamic setup if necessary.
@@ -51,10 +53,10 @@ var server = net.createServer(function(client) {
 	           noble.removeListener('discover', discover)
 	           client.write("SCAN;COMPLETED\n");
 	        }, 2000);
-	      }
-	      else {
-	        client.write("SCAN;ERROR\n");
-	      }
+//	      }
+//	      else {
+//	        client.write("SCAN;ERROR\n");
+//	      }
 	      break;
 	      
 	    case "CONNECT":

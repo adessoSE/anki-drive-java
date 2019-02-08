@@ -23,11 +23,12 @@ repositories {
 
 dependencies {
   compile 'org.reflections:reflections:0.9.11' //was 0.9.10
+  compile 'javax.xml.bind:jaxb-api:2.3.0' //new:
 }
 
 node {
-  version = '8.12.0'// was '4.4.7'
-  npmVersion = '6.4.1'// was '3.10.5'
+  version = '10.15.1'//was '8.12.0'// was '4.4.7'
+  npmVersion = '6.7.0'// was '6.4.1'// was '3.10.5'
   distBaseUrl = 'https://nodejs.org/dist'
   download = true
 

@@ -20,6 +20,23 @@ var server = net.createServer(function(client) {
 	      console.log(noble);
 	      if (noble.state === 'poweredOn') {
 	        var discover = function(device) {
+                                //Peter Muir: edited to more reliably connect to the cars. Hardcoded localName
+				//and txPowerLevel. Should change to a dynamic setup if necessary.
+				//(Context: some cars connect with undefined localName, crashing the server.)
+				if(undefined === device.advertisement.localName){
+					console.log("No localName. Defaulting");
+					device.advertisement.txPowerLevel = 0;
+					//The two cars have the same localName and have uuids starting with 'e'
+					if(device.id.charAt(0) === 'e'){
+						device.advertisement.localName = "\u0001`0\u0001    Drive\u0000";
+					}else{
+						device.advertisement.localName = "\u0010`0\u0001    Drive\u0000";
+					};
+				};
+				//DEBUG message
+				console.log(util.format("SCAN;%s;%s\n",
+	              device.id,
+	              device.advertisement.manufacturerData.toString('hex')));
 	          client.write(util.format("SCAN;%s;%s;%s\n",
 	              device.id,
 	              device.advertisement.manufacturerData.toString('hex'),
@@ -67,7 +84,7 @@ var server = net.createServer(function(client) {
 	              vehicle.writer = characteristics[0];//.find(x => x.properties.includes("write"));
 	
 	              vehicle.reader.notify(true);
-	              vehicle.reader.on('read', function(data, isNotification) {
+	              vehicle.reader.on('data', function(data, isNotification) {
 	                client.write(util.format("%s;%s\n", vehicle.id, data.toString("hex")));
 	                //console.log(util.format("%s;%s\n", vehicle.id, data.toString("hex")));
 	              });

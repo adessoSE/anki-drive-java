@@ -15,7 +15,6 @@
   "dependencies": {
     "mqtt": "^2.18.8",
     "noble": "^1.9.0",
-    "xpc-connection": "git://github.com/taoyuan/node-xpc-connection.git",
     "noble-mac": "git://github.com/Timeular/noble-mac.git"
   }
 }

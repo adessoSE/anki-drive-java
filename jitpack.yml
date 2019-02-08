@@ -6,8 +6,8 @@ addons:
     - libudev-dev
 
 before_install:
-#  - apt-get update
-#  - apt-get install -y libudev-dev
+  - apt-get update
+  - apt-get install -y libudev-dev
 
 language: java
 jdk:

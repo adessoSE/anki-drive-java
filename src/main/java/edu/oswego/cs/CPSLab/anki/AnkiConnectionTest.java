@@ -30,7 +30,7 @@ public class AnkiConnectionTest {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         System.out.println("Launching connector...");
-        AnkiConnector anki = new AnkiConnector("localhost", 5000);
+        AnkiConnector anki = new AnkiConnector("interplexus.local", 5000);
         System.out.print("...looking for cars...");
         List<Vehicle> vehicles = anki.findVehicles();
 
@@ -85,7 +85,7 @@ public class AnkiConnectionTest {
                 lpm.add(lc);
                 v.sendMessage(lpm);
                 System.out.println("   Setting Speed...");
-                v.sendMessage(new SetSpeedMessage(200, 75));
+                v.sendMessage(new SetSpeedMessage(500, 100));
                 //Thread.sleep(1000);
                 //gs.sendMessage(new TurnMessage());
                 System.out.print("Sleeping for 10secs... ");

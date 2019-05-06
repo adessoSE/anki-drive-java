@@ -126,13 +126,8 @@ var server = net.createServer(function(client) {
 	    default:
 	      if (command.length == 2 && noble._peripherals[command[0]] !== undefined) {
 					var vehicle = noble._peripherals[command[0]];
-					var buffer = Buffer.from(command[1]);
-					buffer.toString('hex');
+					var buffer = Buffer.from(command[1], 'hex');
 					//buffer.toString('hex');
-					vehicle.writer.on('data', function(buffer, true) {
-					  console.log(data.readUInt8(0));
-					});
-					//vehicle.writer.subscribe();
 	        vehicle.writer.write(buffer, true);
 	      }
 	  }

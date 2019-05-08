@@ -40,6 +40,10 @@ npm install
 
 ### On MacOS
 
+Prerequisites for macOS:
+- Node.js v6.14.2 or later.
+- macOS 10.7 or later
+
 If you get a "node-pre-gyp build fail error" when running npm install run:
 ```
 rm -rf node_modules/

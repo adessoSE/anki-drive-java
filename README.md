@@ -34,8 +34,23 @@ To install the SDK and all required dependencies run the following commands:
 ```
 git clone https://github.com/adessoAG/anki-drive-java
 cd anki-drive-java
+npm install
 ./gradlew build
 ```
+
+### On MacOS
+
+If you get a "node-pre-gyp build fail error" when running npm install run:
+```
+rm -rf node_modules/
+npm install --build-from-resource
+```
+
+Once connected, if your cars time out follow these steps:
+1. Stop the server
+2. From the Mac desktop, hold down the Shift+Option keys and then click on the Bluetooth menu item to reveal the hidden Debug menu
+3. Select “Reset the Bluetooth module” from the Debug menu list
+4. Once finished reboot your Mac
 
 ### On Linux
 

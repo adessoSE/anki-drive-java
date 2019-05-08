@@ -127,8 +127,7 @@ var server = net.createServer(function(client) {
 	      if (command.length == 2 && noble._peripherals[command[0]] !== undefined) {
 					var vehicle = noble._peripherals[command[0]];
 					var buffer = Buffer.from(command[1], 'hex');
-					//buffer.toString('hex');
-	        vehicle.writer.write(buffer, true);
+					vehicle.writer.write(buffer, true);
 	      }
 	  }
 	});

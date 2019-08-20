@@ -22,13 +22,22 @@ repositories {
 }
 
 dependencies {
-  compile 'org.reflections:reflections:0.9.11' //was 0.9.10
-  compile 'javax.xml.bind:jaxb-api:2.3.0' //new:
+    //included by adessoAG/anki-drive-java, but maybe updated
+    compile 'org.reflections:reflections:0.9.11' //was 0.9.10
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+
+    //new dependencies included by BT
+
+    //dependencies for AnkiCommander (https://github.com/sha224/anki-commander)
+    implementation 'org.apache.sshd:sshd-core:2.2.0'
+    implementation 'org.jline:jline:3.10.0'
+    implementation 'org.slf4j:slf4j-api:1.7.26'
+    implementation 'org.slf4j:slf4j-simple:1.7.26'
 }
 
 node {
-  version = '8.12.0'// was '4.4.7'
-  npmVersion = '6.4.1'// was '3.10.5'
+  version = '8.12.0'    //was '4.4.7'
+  npmVersion = '6.4.1'  //was '3.10.5'
   distBaseUrl = 'https://nodejs.org/dist'
   download = true
 
@@ -45,6 +54,12 @@ task fatJar(type: Jar) {
 task server(type: NodeTask) {
     script = file('src/main/nodejs/server.js')
     ignoreExitValue = true
+}
+
+//added exec task for Anki Commander SSH test server
+task ssh(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.shakhar.anki.commander.AnkiSshd'
 }
 
 processResources.dependsOn(['npmInstall'])

@@ -20,6 +20,8 @@ public class Vehicle {
   private AdvertisementData advertisement;
   
   private AnkiConnector anki;
+
+  private AnkiConnector getAnkiConnector() { return this.anki; }
   
   private Multimap<Class<? extends Message>, MessageListener> listeners;
   private MessageListener defaultListener;

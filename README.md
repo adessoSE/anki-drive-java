@@ -11,6 +11,9 @@ The authors of this software are in no way affiliated to Anki.
 All naming rights for Anki, Anki Drive and Anki Overdrive are property of
 [Anki](http://anki.com).
 
+This is a forked repository from [adessoAG/anki-drive-java](https://github.com/adessoAG/anki-drive-java), which, sadly,
+appears to be abandoned. We are maintaining this SDK to serve our [tenbergen/Automotive-CPS](https://github.com/tenbergen/Automotive-CPS) project.
+
 ## About
 
 Unfortunately, there is currently no cross-platform Java library to interface
@@ -32,10 +35,29 @@ To build and use the SDK in your own project you will need:
 To install the SDK and all required dependencies run the following commands:
 
 ```
-git clone https://github.com/adessoAG/anki-drive-java
+git clone https://github.com/tenbergen/anki-drive-java
 cd anki-drive-java
+npm install
 ./gradlew build
 ```
+
+### On MacOS
+
+Prerequisites for macOS:
+- Node.js v6.14.2 or later.
+- macOS 10.7 or later
+
+If you get a "node-pre-gyp build fail error" when running npm install run:
+```
+rm -rf node_modules/
+npm install --build-from-resource
+```
+
+Once connected, if your cars time out follow these steps:
+1. Stop the server
+2. From the Mac desktop, hold down the Shift+Option keys and then click on the Bluetooth menu item to reveal the hidden Debug menu
+3. Select “Reset the Bluetooth module” from the Debug menu list
+4. Once finished reboot your Mac
 
 ### On Linux
 

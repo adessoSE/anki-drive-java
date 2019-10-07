@@ -1,4 +1,7 @@
 buildscript {
+   dependencies {
+       classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1' // Add this line
+   }
   repositories {
     jcenter()
     maven {
@@ -14,6 +17,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'maven'
+apply plugin: 'com.github.dcendents.android-maven'
 mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
 group = 'com.github.tenbergen'
 

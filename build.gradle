@@ -1,7 +1,4 @@
 buildscript {
-   dependencies {
-       classpath 'com.github.dcendents:android-maven-gradle-plugin:4.6' // Add this line
-   }
   repositories {
     jcenter()
     maven {

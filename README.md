@@ -105,7 +105,7 @@ List<Vehicle> vehicles = anki.findVehicles();
 ### Test File
 To try a connection, start the server and run:
 ```
-./gradlew test
+./gradlew ankiConnectionTest
 ```
 which will execute
 ```java

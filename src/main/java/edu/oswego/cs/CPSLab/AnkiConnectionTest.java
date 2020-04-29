@@ -1,4 +1,4 @@
-package edu.oswego.cs.CPSLab.anki;
+package edu.oswego.cs.CPSLab;
 
 import de.adesso.anki.AnkiConnector;
 import de.adesso.anki.MessageListener;

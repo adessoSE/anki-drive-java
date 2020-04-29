@@ -109,7 +109,7 @@ public class Vehicle {
       }
     }
   }
-  
+
   public Vehicle(AnkiConnector anki, String address, String manufacturerData, String localName) {
     try {
 		this.anki = new AnkiConnector(anki);

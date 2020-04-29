@@ -103,9 +103,13 @@ List<Vehicle> vehicles = anki.findVehicles();
 ```
 
 ### Test File
-To try a connection, start the server and run the class:
+To try a connection, start the server and run:
+```
+./gradlew test
+```
+which will execute
 ```java
-edu.oswego.cs.CPSLab.anki.AnkiConnectionTest
+edu.oswego.cs.CPSLab.AnkiConnectionTest
 ```
 
 ## Contributing

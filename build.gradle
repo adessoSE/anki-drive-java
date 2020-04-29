@@ -63,9 +63,9 @@ task ssh(type: JavaExec) {
 }
 
 //added exec task for AnkiConnection test program
-task ssh(type: JavaExec) {
+task test(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'edu.oswego.cs.CPSLab'
+    main = 'edu.oswego.cs.CPSLab.AnkiConnectionTest'
 }
 
 processResources.dependsOn(['npmInstall'])

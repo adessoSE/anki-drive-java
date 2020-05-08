@@ -25,7 +25,7 @@ public enum Model {
   THERMO(0x0a, "#a11c20"),
   NUKE(0x0b, "#bed62f"),
   GUARDIAN(0x0c, "#42b1d7"),   //BT update on 3/31/19 to correct ID of model "Guardian"
-  __SOMECAR2(0x0d),                  //BT update on 3/31/19 to add ID of unknown model
+  __SOMECAR2(0x0d),                 //BT update on 3/31/19 to add ID of unknown model
   BIGBANG(0x0e, "#4e674d"),
   FREEHWEEL(0x0f, "#25bc00"),  //BT update on 9/14/18 to add new supertruck Freewheel
   X52(0x10, "#990909"),        //BT update on 3/31/19 to add new supertruck X52

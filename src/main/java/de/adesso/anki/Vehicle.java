@@ -78,7 +78,7 @@ public class Vehicle {
   
   public void sendMessage(Message message) {
     anki.sendMessage(this, message);
-    System.out.println(String.format("[%s] > %s: %s", LocalTime.now(), this, message));
+    if (anki.getDebugMode()) System.out.println(String.format("[%s] > %s: %s", LocalTime.now(), this, message));
   }
   
   @Deprecated

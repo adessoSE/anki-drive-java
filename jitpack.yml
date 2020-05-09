@@ -8,11 +8,10 @@ addons:
 before_install:
   - apt-get update
   - apt-get install -y libudev-dev
+  - rm -rf build/node_modules/
+  - ./gradlew clean
 
 install:
-  - ./gradlew clean
-  - rm -rf node_modules
-  - npm install
   - ./gradlew build
 
 language: java

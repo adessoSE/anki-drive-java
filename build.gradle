@@ -15,7 +15,7 @@ apply plugin: 'java-library'
 //apply plugin: 'application'
 apply plugin: 'maven-publish'
 apply plugin: 'com.moowork.node'
-mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
+//mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
 group = 'com.github.tenbergen'
 
 repositories {

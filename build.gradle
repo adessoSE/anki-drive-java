@@ -68,10 +68,6 @@ task ankiConnectionTest(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'edu.oswego.cs.CPSLab.AnkiConnectionTest'
 }
-
-tasks.npmInstall {
-    ignoreExitValue = true
-}
+npmInstall.args = ['--build-from-resource']
 
 processResources.dependsOn(['npmInstall'])
-npm_install.dependsOn(npm_cache_clean)

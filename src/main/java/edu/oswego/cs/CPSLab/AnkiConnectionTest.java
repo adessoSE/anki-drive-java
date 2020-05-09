@@ -39,9 +39,7 @@ public class AnkiConnectionTest {
                 Vehicle v = iter.next();
                 AnkiConnectionTest act = new AnkiConnectionTest(v);
                 act.run();
-                System.out.println("NEXT CAR in 5sec");
             }
-            System.out.println("last car done");
         }
         anki.close();
         System.out.println("Test complete.");
@@ -80,11 +78,11 @@ public class AnkiConnectionTest {
         //now we can actually send it.
         v.sendMessage(new PingRequestMessage());
         prh.pingSentAt = System.currentTimeMillis();
-        System.out.print(" sent. Waiting for pong...");
+        System.out.print(" sent. Waiting at most 10secs for pong...");
         while (!prh.pingReceived) {
             Thread.sleep(10);
         }
-        System.out.println(" received. Roundtrip: " + prh.roundTrip + " msec.");
+        System.out.println(" Roundtrip: " + prh.roundTrip + " msec.");
 
         System.out.println("   Sending asynchronous Battery Level Request. Response will come eventually.");
         BatteryLevelResponseHandler blrh = new BatteryLevelResponseHandler();
@@ -99,8 +97,8 @@ public class AnkiConnectionTest {
         LightsPatternMessage lpm = new LightsPatternMessage();
         lpm.add(lc);
         v.sendMessage(lpm);
-        //we should sleep for at least as long as the ping roundtrip to give the Vehicle time to set the lights
-        Thread.sleep(prh.roundTrip);
+        //we should sleep for at least some factor of the ping roundtrip to give the Vehicle time to set the lights
+        Thread.sleep(prh.roundTrip * 10);
 
         System.out.println("   Setting Speed...");
         //Speed is easy. Just tell the car how fast to go and how quickly to accelerate.
@@ -112,10 +110,11 @@ public class AnkiConnectionTest {
         FinishLineDetector fld = new FinishLineDetector();
         v.addMessageListener(LocalizationPositionUpdateMessage.class, fld);
         v.sendMessage(new LocalizationPositionUpdateMessage());
-        while (!fld.stop) {
+        while (!fld.stop ) {
             Thread.sleep(prh.roundTrip);
         }
         v.disconnect();
+        System.out.println("Disconnected from " + v);
     }
 
     /**

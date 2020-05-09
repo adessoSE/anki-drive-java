@@ -69,4 +69,4 @@ task ankiConnectionTest(type: JavaExec) {
     main = 'edu.oswego.cs.CPSLab.AnkiConnectionTest'
 }
 
-//processResources.dependsOn(['npmInstall'])
+processResources.dependsOn(['npmInstall'])

@@ -11,9 +11,9 @@ plugins {
   id "com.moowork.node" version "1.3.1"
 }
 
-apply plugin: 'java'
-apply plugin: 'library'
-apply plugin: 'maven'
+apply plugin: 'java-library'
+//apply plugin: 'application'
+apply plugin: 'maven-publish'
 apply plugin: 'com.moowork.node'
 mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
 group = 'com.github.tenbergen'

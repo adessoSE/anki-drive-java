@@ -11,7 +11,8 @@ before_install:
 
 install:
   - ./gradlew clean
-  - npm install --build-from-resource
+  - rm -rf node_modules
+  - npm install
   - ./gradlew build
 
 language: java

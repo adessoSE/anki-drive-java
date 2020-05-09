@@ -13,7 +13,7 @@ plugins {
 
 apply plugin: 'java-library'
 //apply plugin: 'application'
-apply plugin: 'maven-publish'
+apply plugin: 'android-maven'
 apply plugin: 'com.moowork.node'
 //mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
 group = 'com.github.tenbergen'
@@ -30,10 +30,10 @@ dependencies {
     //new dependencies included by BT
 
     //dependencies for AnkiCommander (https://github.com/sha224/anki-commander)
-    implementation 'org.apache.sshd:sshd-core:2.2.0'
-    implementation 'org.jline:jline:3.10.0'
-    implementation 'org.slf4j:slf4j-api:1.7.26'
-    implementation 'org.slf4j:slf4j-simple:1.7.26'
+    compile 'org.apache.sshd:sshd-core:2.2.0'
+    compile 'org.jline:jline:3.10.0'
+    compile 'org.slf4j:slf4j-api:1.7.26'
+    compile 'org.slf4j:slf4j-simple:1.7.26'
 }
 
 node {

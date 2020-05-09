@@ -13,18 +13,18 @@ import java.util.List;
 
 /**
  * A simple test program to test a connection to your Anki 'Supercars' and 'Supertrucks' using the NodeJS Bluetooth gateway.
- * Simple follow the installation instructions at http://github.com/adessoAG/anki-drive-java, build this project, start the
+ * Simple follow the installation instructions at http://github.com/tenbergen/anki-drive-java, build this project, start the
  * bluetooth gateway using ./gradlew server, and run this class.
  *
  * @author Bastian Tenbergen (bastian.tenbergen@oswego.edu)
  */
-public class AnkiConnectionTest implements Runnable {
+public class AnkiConnectionTest {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
         System.out.println("Launching connector...");
-        AnkiConnector anki = new AnkiConnector("192.168.1.62", 5000);
-        System.out.print("...looking for cars...");
+        AnkiConnector anki = new AnkiConnector("localhost", 5000);
+        System.out.print(" looking for cars...");
         List<Vehicle> vehicles = anki.findVehicles();
 
         if (vehicles.isEmpty()) {
@@ -32,18 +32,20 @@ public class AnkiConnectionTest implements Runnable {
 
         } else {
             System.out.println(" FOUND " + vehicles.size() + " CARS!");
-            System.out.println("\nNow connecting to and doing stuff to your cars.\n\n");
+            System.out.println(" Now connecting to and doing stuff to your cars.");
 
             Iterator<Vehicle> iter = vehicles.iterator();
             while (iter.hasNext()) {
                 Vehicle v = iter.next();
-                //Thread ct = new Thread(new AnkiConnectionTest((v)));
-                //ct.run();
                 AnkiConnectionTest act = new AnkiConnectionTest(v);
                 act.run();
+                System.out.println("NEXT CAR in 5sec");
             }
+            System.out.println("last car done");
         }
         anki.close();
+        System.out.println("Test complete.");
+        System.exit(0);
     }
 
     private Vehicle v;
@@ -52,8 +54,7 @@ public class AnkiConnectionTest implements Runnable {
         this.v = v;
     }
 
-    @Override
-    public void run() {
+    public void run() throws InterruptedException {
         System.out.println("\nConnecting to " + v + " @ " + v.getAddress());
         v.connect();
         System.out.println("Vehicle Advertisement Data:");
@@ -69,22 +70,27 @@ public class AnkiConnectionTest implements Runnable {
 
         System.out.print("   Connected. Setting SDK mode...");   //always set the SDK mode FIRST!
         v.sendMessage(new SdkModeMessage());
-        System.out.println("   SDK Mode set.");
+        System.out.println(" done.");
 
-        System.out.println("   Sending asynchronous Battery Level Request. The Response will come in eventually.");
+        System.out.print("   Sending ping...");
         //we have to set up a response handler first, in order to handle async responses
-        BatteryLevelResponseHandler blrh = new BatteryLevelResponseHandler();
-        //now we tell the car, who is listening to the replies
-        v.addMessageListener(BatteryLevelResponseMessage.class, blrh);
-        //now we can actually send it.
-        v.sendMessage(new BatteryLevelRequestMessage());
-
-        System.out.println("   Sending Ping Request...");
-        //again, some async set-up required...
         PingResponseHandler prh = new PingResponseHandler();
+        //now we tell the car, who is listening to the replies
         v.addMessageListener(PingResponseMessage.class, prh);
-        prh.pingSentAt = System.currentTimeMillis();
+        //now we can actually send it.
         v.sendMessage(new PingRequestMessage());
+        prh.pingSentAt = System.currentTimeMillis();
+        System.out.print(" sent. Waiting for pong...");
+        while (!prh.pingReceived) {
+            Thread.sleep(10);
+        }
+        System.out.println(" received. Roundtrip: " + prh.roundTrip + " msec.");
+
+        System.out.println("   Sending asynchronous Battery Level Request. Response will come eventually.");
+        BatteryLevelResponseHandler blrh = new BatteryLevelResponseHandler();
+        //works just like a Ping Request
+        v.addMessageListener(BatteryLevelResponseMessage.class, blrh);
+        v.sendMessage(new BatteryLevelRequestMessage());
 
         System.out.println("   Flashing lights...");
         //Lights require configurations. So first construct a lights configuration,
@@ -93,28 +99,54 @@ public class AnkiConnectionTest implements Runnable {
         LightsPatternMessage lpm = new LightsPatternMessage();
         lpm.add(lc);
         v.sendMessage(lpm);
+        //we should sleep for at least as long as the ping roundtrip to give the Vehicle time to set the lights
+        Thread.sleep(prh.roundTrip);
 
         System.out.println("   Setting Speed...");
         //Speed is easy. Just tell the car how fast to go and how quickly to accelerate.
         v.sendMessage(new SetSpeedMessage(500, 100));
 
-        System.out.println("    Looking for finish line...");
+        System.out.println("   Driving to finish line...");
         //Use the sensor on the bottom to check the road pieces. This is like a response/request, but will
         //update whenever there's a new value.
         FinishLineDetector fld = new FinishLineDetector();
         v.addMessageListener(LocalizationPositionUpdateMessage.class, fld);
         v.sendMessage(new LocalizationPositionUpdateMessage());
         while (!fld.stop) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            //  System.out.print("continue");
-            //    System.out.print("    Looking for finish line...");
+            Thread.sleep(prh.roundTrip);
         }
-        //         v.disconnect();
-        System.out.println("disconnected from " + v + "\n");
+        v.disconnect();
+    }
+
+    /**
+     * Handles the response from the vehicle from the PingRequestMessage.
+     * We need handler classes because responses from the vehicles are asynchronous.
+     * Sets a received flag to true and computes the roundtrip time.
+     */
+    private class PingResponseHandler implements MessageListener<PingResponseMessage> {
+        private boolean pingReceived = false;
+        private long pingSentAt = System.currentTimeMillis();
+        private long roundTrip = -1;
+
+        @Override
+        public void messageReceived(PingResponseMessage m) {
+            this.pingReceived = true;
+            this.roundTrip = System.currentTimeMillis() - pingSentAt;
+        }
+    }
+
+    /**
+     * Handles the response from the vehicle from the BatteryLevelRequestMessage.
+     * Updates the battery level whenever a BatteryLEvelRequestMessage is sent.
+     */
+    private class BatteryLevelResponseHandler implements MessageListener<BatteryLevelResponseMessage> {
+        private int batt_level;
+
+        @Override
+        public void messageReceived(BatteryLevelResponseMessage m) {
+            this.batt_level = m.getBatteryLevel();
+            System.out.println("   Battery Level is: " + this.batt_level + " mV");
+        }
     }
 
     /**
@@ -122,41 +154,12 @@ public class AnkiConnectionTest implements Runnable {
      * and sets a stop flag to true if it's the finish line.
      */
     private class FinishLineDetector implements MessageListener<LocalizationPositionUpdateMessage> {
-
         private int finishLineId = FinishRoadpiece.ROADPIECE_IDS[0];
         private boolean stop = false;
 
         @Override
         public void messageReceived(LocalizationPositionUpdateMessage m) {
-   //         System.out.println(m.toString());
-            if (m.getRoadPieceId() == finishLineId) stop = true;
-        }
-    }
-
-    /**
-     * Handles the response from the vehicle from the BatteryLevelRequestMessage.
-     * We need handler classes because responses from the vehicles are asynchronous.
-     */
-    private class BatteryLevelResponseHandler implements MessageListener<BatteryLevelResponseMessage> {
-        private int batt_level;
-        @Override
-        public void messageReceived(BatteryLevelResponseMessage m) {
-            System.out.println("   Battery Level is: " + m.getBatteryLevel() + " mV");
-        }
-    }
-
-    /**
-     * Handles the response from the vehicle from the PingRequestMessage.
-     * We need handler classes because responses from the vehicles are asynchronous.
-     */
-    private class PingResponseHandler implements MessageListener<PingResponseMessage> {
-        private long pingReceivedAt;
-        private long pingSentAt;
-
-        @Override
-        public void messageReceived(PingResponseMessage m) {
-            pingReceivedAt = System.currentTimeMillis();
-            System.out.println("   Ping response received. Roundtrip: " + (pingReceivedAt - pingSentAt) + " msec.");
+            if (m.getRoadPieceId() == finishLineId) this.stop = true;
         }
     }
 }

@@ -14,6 +14,7 @@ plugins {
 apply plugin: 'java'
 apply plugin: 'application'
 apply plugin: 'maven'
+apply plugin: 'com.moowork.node'
 mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
 group = 'com.github.tenbergen'
 
@@ -68,4 +69,9 @@ task ankiConnectionTest(type: JavaExec) {
     main = 'edu.oswego.cs.CPSLab.AnkiConnectionTest'
 }
 
-//processResources.dependsOn(['npmInstall'])
+tasks.npmInstall {
+    ignoreExitValue = true
+}
+
+processResources.dependsOn(['npmInstall'])
+npm_install.dependsOn(npm_cache_clean)

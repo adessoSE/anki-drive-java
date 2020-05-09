@@ -52,7 +52,7 @@ task fatJar(type: Jar) {
     with jar
 }
 
-task server(type: NodeTask) {
+task server(type: NodeTask, dependsOn: npmInstall) {
     script = file('src/main/nodejs/server.js')
     ignoreExitValue = true
 }
@@ -68,6 +68,5 @@ task ankiConnectionTest(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'edu.oswego.cs.CPSLab.AnkiConnectionTest'
 }
-npmInstall.args = ['--build-from-resource']
 
-processResources.dependsOn(['npmInstall'])
+//processResources.dependsOn(['npmInstall'])

@@ -8,7 +8,6 @@ addons:
 before_install:
   - apt-get update
   - apt-get install -y libudev-dev
-  - npm install --build-from-resource
 
 install:
   - ./gradlew build

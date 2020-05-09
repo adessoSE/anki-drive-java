@@ -12,7 +12,7 @@ plugins {
 }
 
 apply plugin: 'java'
-apply plugin: 'application'
+apply plugin: 'library'
 apply plugin: 'maven'
 apply plugin: 'com.moowork.node'
 mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'

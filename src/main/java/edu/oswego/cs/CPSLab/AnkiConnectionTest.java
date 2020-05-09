@@ -21,9 +21,8 @@ import java.util.List;
 public class AnkiConnectionTest {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-
         System.out.println("Launching connector...");
-        AnkiConnector anki = new AnkiConnector("localhost", 5000);
+        AnkiConnector anki = new AnkiConnector("192.168.1.60", 5000);
         System.out.print(" looking for cars...");
         List<Vehicle> vehicles = anki.findVehicles();
 

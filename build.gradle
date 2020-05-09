@@ -12,10 +12,10 @@ plugins {
 }
 
 apply plugin: 'java-library'
-apply plugin: 'application'
+//apply plugin: 'application'
 apply plugin: 'maven-publish'
 apply plugin: 'com.moowork.node'
-mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
+//mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
 group = 'com.github.tenbergen'
 
 repositories {
@@ -69,4 +69,4 @@ task ankiConnectionTest(type: JavaExec) {
     main = 'edu.oswego.cs.CPSLab.AnkiConnectionTest'
 }
 
-processResources.dependsOn(['npmInstall'])
+//processResources.dependsOn(['npmInstall'])

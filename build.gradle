@@ -13,7 +13,7 @@ plugins {
 
 apply plugin: 'java-library'
 //apply plugin: 'application'
-apply plugin: 'android-maven'
+apply plugin: 'maven'
 apply plugin: 'com.moowork.node'
 //mainClassName = 'edu.oswego.cs.CPSLab.anki.AnkiConnectionTest'
 group = 'com.github.tenbergen'

@@ -11,7 +11,7 @@ plugins {
   id "com.moowork.node" version "1.3.1"
 }
 
-apply plugin: 'java-library'
+apply plugin: 'library'
 //apply plugin: 'application'
 apply plugin: 'maven'
 apply plugin: 'com.moowork.node'
@@ -30,10 +30,10 @@ dependencies {
     //new dependencies included by BT
 
     //dependencies for AnkiCommander (https://github.com/sha224/anki-commander)
-   // compile 'org.apache.sshd:sshd-core:2.2.0'
-   // compile 'org.jline:jline:3.10.0'
-  //  compile 'org.slf4j:slf4j-api:1.7.26'
-  //  compile 'org.slf4j:slf4j-simple:1.7.26'
+    implementation 'org.apache.sshd:sshd-core:2.2.0'
+    implementation 'org.jline:jline:3.10.0'
+    implementation 'org.slf4j:slf4j-api:1.7.26'
+    implementation 'org.slf4j:slf4j-simple:1.7.26'
 }
 
 node {
@@ -58,10 +58,10 @@ task server(type: NodeTask, dependsOn: npmInstall) {
 }
 
 //added exec task for Anki Commander SSH test server
-//task ssh(type: JavaExec) {
-//    classpath = sourceSets.main.runtimeClasspath
-//    main = 'com.shakhar.anki.commander.AnkiSshd'
-//}
+task ssh(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.shakhar.anki.commander.AnkiSshd'
+}
 
 //added exec task for AnkiConnection test program
 task ankiConnectionTest(type: JavaExec) {

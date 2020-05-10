@@ -14,7 +14,6 @@
   "license": "UNLICENSED",
   "dependencies": {
     "mqtt": "^2.18.8",
-    "noble": "^1.9.0",
-    "noble-mac": "git://github.com/Timeular/noble-mac.git"
+    "noble-mac": "https://github.com/Timeular/noble-mac.git"
   }
 }

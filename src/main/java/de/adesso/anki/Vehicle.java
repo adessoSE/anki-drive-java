@@ -20,6 +20,8 @@ public class Vehicle {
   private AdvertisementData advertisement;
   
   private AnkiConnector anki;
+
+  public AnkiConnector getAnkiConnector() { return this.anki; }
   
   private Multimap<Class<? extends Message>, MessageListener> listeners;
   private MessageListener defaultListener;
@@ -76,7 +78,7 @@ public class Vehicle {
   
   public void sendMessage(Message message) {
     anki.sendMessage(this, message);
-    System.out.println(String.format("[%s] > %s: %s", LocalTime.now(), this, message));
+    if (anki.getDebugMode()) System.out.println(String.format("[%s] > %s: %s", LocalTime.now(), this, message));
   }
   
   @Deprecated
@@ -107,7 +109,7 @@ public class Vehicle {
       }
     }
   }
-  
+
   public Vehicle(AnkiConnector anki, String address, String manufacturerData, String localName) {
     try {
 		this.anki = new AnkiConnector(anki);

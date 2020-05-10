@@ -21,6 +21,8 @@ import de.adesso.anki.messages.Message;
 @SuppressWarnings("rawtypes")
 public class AnkiConnector {
 
+    private boolean debug = false;
+
     private Socket socket;
     private final String host;
     private final int port;
@@ -48,6 +50,14 @@ public class AnkiConnector {
 
     public AnkiConnector(AnkiConnector anki) throws IOException {
         this(anki.host, anki.port);
+    }
+
+    public void toggleDebugMode() {
+        this.debug = !this.debug;
+    }
+
+    public boolean getDebugMode() {
+        return this.debug;
     }
 
     public synchronized List<Vehicle> findVehicles() {

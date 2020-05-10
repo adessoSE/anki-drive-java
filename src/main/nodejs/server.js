@@ -1,5 +1,5 @@
 var net = require('net');
-var noble = require('noble');
+var noble = require('noble-mac');
 var util = require('util');
 
 var server = net.createServer(function(client) {
@@ -42,7 +42,7 @@ var server = net.createServer(function(client) {
 	          client.write(util.format("SCAN;%s;%s;%s\n",
 	              device.id,
 	              device.advertisement.manufacturerData.toString('hex'),
-	              new Buffer(device.advertisement.localName).toString('hex')));
+	              Buffer.from(device.advertisement.localName).toString('hex')));
 	        };
 	
 	        noble.on('discover', discover);
@@ -125,8 +125,9 @@ var server = net.createServer(function(client) {
 	    
 	    default:
 	      if (command.length == 2 && noble._peripherals[command[0]] !== undefined) {
-	        var vehicle = noble._peripherals[command[0]];
-	        vehicle.writer.write(new Buffer(command[1], 'hex'));
+					var vehicle = noble._peripherals[command[0]];
+					var buffer = Buffer.from(command[1], 'hex');
+					vehicle.writer.write(buffer, true);
 	      }
 	  }
 	});

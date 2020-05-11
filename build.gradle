@@ -68,4 +68,10 @@ task ankiConnectionTest(type: JavaExec) {
     main = 'edu.oswego.cs.CPSLab.AnkiConnectionTest'
 }
 
+//added exec task for RoadmapScanner test program
+task scanTrack(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'edu.oswego.cs.CPSLab.RoadmapScannerTest'
+}
+
 //processResources.dependsOn(['npmInstall']) // moved to server task because only that needs node. Fixed Jitpack issues.

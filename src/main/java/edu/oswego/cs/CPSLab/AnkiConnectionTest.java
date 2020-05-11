@@ -46,6 +46,7 @@ public class AnkiConnectionTest {
     }
 
     private Vehicle v;
+    private long interval = 10;
 
     public AnkiConnectionTest(Vehicle v) {
         this.v = v;
@@ -78,9 +79,12 @@ public class AnkiConnectionTest {
         v.sendMessage(new PingRequestMessage());
         prh.pingSentAt = System.currentTimeMillis();
         System.out.print(" sent. Waiting at most 10secs for pong...");
-        while (!prh.pingReceived) {
-            Thread.sleep(10);
+        long timeout  = 10000;
+        while (!prh.pingReceived && timeout > 0) {
+            Thread.sleep(interval);
+            timeout -= interval;
         }
+        this.interval = prh.roundTrip;
         System.out.println(" Roundtrip: " + prh.roundTrip + " msec.");
 
         System.out.println("   Sending asynchronous Battery Level Request. Response will come eventually.");
@@ -97,7 +101,7 @@ public class AnkiConnectionTest {
         lpm.add(lc);
         v.sendMessage(lpm);
         //we should sleep for at least some factor of the ping roundtrip to give the Vehicle time to set the lights
-        Thread.sleep(prh.roundTrip * 10);
+        Thread.sleep(interval * 10);
 
         System.out.println("   Setting Speed...");
         //Speed is easy. Just tell the car how fast to go and how quickly to accelerate.
@@ -110,8 +114,9 @@ public class AnkiConnectionTest {
         v.addMessageListener(LocalizationPositionUpdateMessage.class, fld);
         v.sendMessage(new LocalizationPositionUpdateMessage());
         while (!fld.stop ) {
-            Thread.sleep(prh.roundTrip);
+            Thread.sleep(interval);
         }
+        v.sendMessage(new SetSpeedMessage(0, 12500));
         v.disconnect();
         System.out.println("Disconnected from " + v);
     }

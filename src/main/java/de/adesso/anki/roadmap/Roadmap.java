@@ -304,7 +304,7 @@ public class Roadmap implements Serializable {
             ObjectInputStream rmReader = new ObjectInputStream(fileReader);
             rm = (Roadmap) rmReader.readObject();
             rmReader.close();
-        } catch (IOException | ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException | NullPointerException ex) {
             System.err.println(ex.toString());
         }
         return rm;

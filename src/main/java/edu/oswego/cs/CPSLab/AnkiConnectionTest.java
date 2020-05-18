@@ -20,9 +20,16 @@ import java.util.List;
  */
 public class AnkiConnectionTest {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("Launching connector...");
-        AnkiConnector anki = new AnkiConnector("localhost", 5000);
+        AnkiConnector anki = null;
+        try {
+            anki = new AnkiConnector("localhost", 5000);
+        } catch (IOException ioe) {
+            System.out.println("Error connecting to server. Is it running?");
+            System.out.println("Exiting.");
+            System.exit(0);
+        }
         System.out.print(" looking for cars...");
         List<Vehicle> vehicles = anki.findVehicles();
 

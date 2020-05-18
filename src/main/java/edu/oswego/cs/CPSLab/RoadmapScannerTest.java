@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class RoadmapScannerTest {
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
 
         System.out.print("Loading Roadmap... ");
         Roadmap rm0 = Roadmap.loadRoadmap(System.getenv("user.home" + "/" + "Roadmap.ovrdrv"));
@@ -45,9 +45,14 @@ public class RoadmapScannerTest {
 
         System.out.println("Now, let's look for any car and try to scan the track...");
 
-        System.exit(0);
-
-        AnkiConnector anki = new AnkiConnector("localhost", 5000);
+        AnkiConnector anki = null;
+        try {
+            anki = new AnkiConnector("localhost", 5000);
+        } catch (IOException ioe) {
+            System.out.println("Error connecting to server. Is it running?");
+            System.out.println("Exiting.");
+            System.exit(0);
+        }
         List<Vehicle> vehicles = anki.findVehicles();
 
         if (vehicles.isEmpty()) {

@@ -16,6 +16,7 @@ apply plugin: 'java-library'
 apply plugin: 'maven'
 apply plugin: 'com.moowork.node'
 group = 'com.github.tenbergen'
+sourceCompatibility = '1.8'
 
 repositories {
   jcenter()

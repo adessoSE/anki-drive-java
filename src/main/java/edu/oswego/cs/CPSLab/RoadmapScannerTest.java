@@ -51,7 +51,7 @@ public class RoadmapScannerTest {
         } catch (IOException ioe) {
             System.out.println("Error connecting to server. Is it running?");
             System.out.println("Exiting.");
-            System.exit(0);
+            System.exit(1);
         }
         List<Vehicle> vehicles = anki.findVehicles();
 

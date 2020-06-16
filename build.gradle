@@ -17,6 +17,8 @@ apply plugin: 'maven'
 apply plugin: 'com.moowork.node'
 group = 'com.github.tenbergen'
 
+compileJava.options.fork = true
+
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 

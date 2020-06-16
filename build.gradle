@@ -19,8 +19,8 @@ group = 'com.github.tenbergen'
 
 compileJava.options.fork = true
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8

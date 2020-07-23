@@ -27,12 +27,17 @@ public class RoadmapScanner {
 
     private Vehicle vehicle;
     private Roadmap roadmap;
+    private boolean initReverse;
+    private ArrayList<Integer> pieceIDs;
+    private ArrayList<Boolean> reverses;
 
     private LocalizationPositionUpdateMessage lastPosition;
 
     public RoadmapScanner(Vehicle vehicle) {
         this.vehicle = vehicle;
         this.roadmap = new Roadmap();
+        this.pieceIDs = new ArrayList<Integer>();
+        this.reverses = new ArrayList<Boolean>();
     }
 
     /**
@@ -103,6 +108,13 @@ public class RoadmapScanner {
                     lastPosition.getLocationId(),
                     lastPosition.isParsedReverse()
             );
+            
+            pieceIDs.add(lastPosition.getRoadPieceId());
+            reverses.add(lastPosition.isParsedReverse());
+            
+            if (lastPosition.getRoadPieceId() == 33) {
+                initReverse = lastPosition.isParsedReverse();
+            }
 
             if (roadmap.isComplete()) {
                 this.stopScanning();

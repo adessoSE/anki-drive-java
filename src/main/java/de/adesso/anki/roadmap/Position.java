@@ -1,6 +1,18 @@
 package de.adesso.anki.roadmap;
 
-public class Position {
+import java.io.Serializable;
+
+/**
+ * Position object used to differentiate Sections. Entering the same Section using a Roadpiece might have different
+ * entry and exist positions. This is relevant for curves as well as intersections.
+ * 2020-05-12 - Updated with toString helper function for debugging. Added Serializable marker for saving Roadmaps.
+ *
+ * @since 2016-12-13
+ * @version 2020-05-12
+ * @author adesso AG
+ * @author Bastian Tenbergen (bastian.tenbergen@oswego.edu)
+ */
+public class Position implements Serializable {
   private double x;
   private double y;
   private double angle;
@@ -80,4 +92,14 @@ public class Position {
     return angle;
   }
 
+  /**
+   * Provides a neatly formatted string representation of a Position.
+   * @return String representation of this Position.
+   * @since 2020-05-12
+   * @version 2020-05-12
+   * @author Bastian Tenbergen (bastian.tenbergen@oswego.edu)
+   */
+  public String toString() {
+    return "X: " + getX() + ", Y: " + getY() + ", Angle: " + getAngle();
+  }
 }

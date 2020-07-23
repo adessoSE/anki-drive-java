@@ -1,5 +1,6 @@
 package de.adesso.anki.roadmap.roadpieces;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +12,16 @@ import de.adesso.anki.roadmap.Position;
 import de.adesso.anki.roadmap.Roadmap;
 import de.adesso.anki.roadmap.Section;
 
-public abstract class Roadpiece {
+/**
+ * Roadpiece object used to differentiate types of track. This is the original adesso version, however added Serializeable marker interface for serialization.
+ * 2020-05-12 - Added Serializable marker for saving Roadmaps.
+ *
+ * @since 2016-12-13
+ * @version 2020-05-12
+ * @author adesso AG
+ * @author Bastian Tenbergen (bastian.tenbergen@oswego.edu)
+ */
+public abstract class Roadpiece implements Serializable {
   private final static Reflections reflections = new Reflections("de.adesso.anki.roadmap.roadpieces");
   
   private Position position;

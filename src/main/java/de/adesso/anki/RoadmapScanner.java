@@ -1,5 +1,7 @@
 package de.adesso.anki;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import de.adesso.anki.messages.LocalizationPositionUpdateMessage;
 import de.adesso.anki.messages.LocalizationTransitionUpdateMessage;
 //import de.adesso.anki.messages.SetSpeedMessage;

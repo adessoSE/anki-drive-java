@@ -10,6 +10,7 @@ import de.adesso.anki.roadmap.Roadmap;
  * the same track piece.
  * 2020-05-10 - Updated to no longer move the vehicles. Didn't work reliably due to asynchronous messages interlacing on some architecttures. It's not the caller's responsibility to move the vehicle.
  * 2020-05-11 - Updated to normalize the Roadmap, i.e., the first track piece is a StartRoadpiece, the last one is a FinishRoadpiece
+ * 2020-07-27 - Updated to include the creation of lists of pieceIDs and reverses
  * Usage:
  * 1. create new RoadmapScanner with a Vehicle
  * 2. call startScanning()
@@ -22,6 +23,7 @@ import de.adesso.anki.roadmap.Roadmap;
  * @version 2020-05-10
  * @author adesso AG
  * @author Bastian Tenbergen (bastian.tenbergen@oswego.edu)
+ * @author Ka Ying Chan (kchan2@oswego.edu)
  */
 public class RoadmapScanner {
 
@@ -82,6 +84,18 @@ public class RoadmapScanner {
                 (message) -> handleTransitionUpdate(message)
         );
         //vehicle.sendMessage(new SetSpeedMessage(0, 12500));
+        if (initReverse) {
+            Collections.reverse(pieceIDs);
+            Collections.reverse(reverses);
+            for (int i = 0; i < pieceIDs.size(); i++) {
+                if (pieceIDs.get(i) != 10) {
+                    reverses.set(i, !reverses.get(i));
+                }
+            }
+        }
+        int distance = pieceIDs.size() - 1 - pieceIDs.indexOf(34);
+        Collections.rotate(pieceIDs, distance);
+        Collections.rotate(reverses, distance);
     }
 
     public boolean isComplete() {
@@ -90,6 +104,18 @@ public class RoadmapScanner {
 
     public Roadmap getRoadmap() {
         return roadmap;
+    }
+
+    public boolean getInitReverse() {
+        return initReverse;
+    }
+
+    public ArrayList<Integer> getPieceIDs() {
+        return pieceIDs;
+    }
+
+    public ArrayList<Boolean> getReverses() {
+        return reverses;
     }
 
     public void reset() {
@@ -108,11 +134,12 @@ public class RoadmapScanner {
                     lastPosition.getLocationId(),
                     lastPosition.isParsedReverse()
             );
-            
+
             pieceIDs.add(lastPosition.getRoadPieceId());
             reverses.add(lastPosition.isParsedReverse());
-            
-            if (lastPosition.getRoadPieceId() == 33) {
+//            System.out.println("Added a piece... " + pieceIDs.get(pieceIDs.size() - 1));
+
+            if (lastPosition.getRoadPieceId() == 33 || lastPosition.getRoadPieceId() == 34) {
                 initReverse = lastPosition.isParsedReverse();
             }
 

@@ -277,6 +277,16 @@ public class Roadmap implements Serializable, Cloneable {
         return super.clone();
     }
 
+    public Roadmap getCopy() {
+        Roadmap rm;
+        try {
+            rm = (Roadmap) this.clone();
+        } catch (CloneNotSupportedException ce) {
+            return null;
+        }
+        return rm;
+    }
+
     /**
      * Writes a Roadmap to disk.
      * @param toSave The Roadmap to save.

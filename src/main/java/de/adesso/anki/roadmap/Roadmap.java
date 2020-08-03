@@ -19,7 +19,7 @@ import de.adesso.anki.roadmap.roadpieces.*;
  * @version 2020-05-12
  * @since 2016-12-13
  */
-public class Roadmap implements Serializable {
+public class Roadmap implements Serializable, Cloneable {
 
     private Section nonNormalizedAnchor = null;
     private Section anchor;

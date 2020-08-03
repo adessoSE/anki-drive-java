@@ -25,7 +25,7 @@ public class RoadmapScannerTest {
     public static void main(String[] args) throws InterruptedException {
 
         System.out.print("Loading Roadmap... ");
-        Roadmap rm0 = Roadmap.loadRoadmap(System.getenv("user.home" + "/" + "Roadmap.ovrdrv"));
+     /*   Roadmap rm0 = Roadmap.loadRoadmap(System.getenv("user.home" + "/" + "Roadmap.ovrdrv"));
         if (rm0 != null) {
             System.out.println("loaded track is:");
             System.out.println(rm0.toString());
@@ -42,12 +42,12 @@ public class RoadmapScannerTest {
         } else {
             System.out.println("Sorry, no Roadmap found on disk.");
         }
-
+*/
         System.out.println("Now, let's look for any car and try to scan the track...");
 
         AnkiConnector anki = null;
         try {
-            anki = new AnkiConnector("localhost", 5000);
+            anki = new AnkiConnector("192.168.1.101", 5000);
         } catch (IOException ioe) {
             System.out.println("Error connecting to server. Is it running?");
             System.out.println("Exiting.");
@@ -80,8 +80,8 @@ public class RoadmapScannerTest {
             System.out.println(rm2.toString());
             System.out.println("Trying to save Roadmap..." + Roadmap.saveRoadmap(rm2, "user.home" + "/" + "Roadmap.ovrdrv"));
 
-            System.out.println("Are the loaded and the scanned Roadmap equal?");
-            System.out.println(rm0.equals(rm2));
+      //      System.out.println("Are the loaded and the scanned Roadmap equal?");
+      //      System.out.println(rm0.equals(rm2));
 
         }
         anki.close();

@@ -1,15 +1,19 @@
 # Anki Drive SDK for Java
 
 The Anki Drive SDK for Java is an implementation of the message protocols
-and data parsing routines necessary for communicating with Anki Drive vehicles.
+and data parsing routines necessary for communicating with Anki Drive and Overdrive vehicles. This library is an updated
+version of the one found [adessoAG/anki-drive-java](https://github.com/adessoAG/anki-drive-java). 
 
 *See [anki/drive-sdk](https://github.com/anki/drive-sdk) for the official
 SDK written in C.*
 
 ### Disclaimer
-The authors of this software are in no way affiliated to Anki.
+The authors of this software are in no way affiliated to Anki nor adesso AG.
 All naming rights for Anki, Anki Drive and Anki Overdrive are property of
-[Anki](http://anki.com).
+[Anki](http://anki.com), initial concept and implementation of the Java version by the folks at adesso.
+
+This is a forked repository from [adessoAG/anki-drive-java](https://github.com/adessoAG/anki-drive-java), which, sadly,
+appears to be abandoned. We are maintaining this SDK to serve our [tenbergen/Automotive-CPS](https://github.com/tenbergen/Automotive-CPS) project.
 
 ## About
 
@@ -32,16 +36,46 @@ To build and use the SDK in your own project you will need:
 To install the SDK and all required dependencies run the following commands:
 
 ```
-git clone https://github.com/yeckey/anki-drive-java
+git clone https://github.com/tenbergen/anki-drive-java
 cd anki-drive-java
 ./gradlew build
 ```
+
+### On MacOS
+
+Prerequisites for macOS:
+- Node.js v6.14.2 or later.
+- macOS 10.7 or later
+
+If you get a "node-pre-gyp build fail error" when running npm install run:
+```
+rm -rf node_modules/
+npm install --build-from-resource
+```
+
+Once connected, if your cars time out follow these steps:
+1. Stop the server
+2. From the Mac desktop, hold down the Shift+Option keys and then click on the Bluetooth menu item to reveal the hidden Debug menu
+3. Select “Reset the Bluetooth module” from the Debug menu list
+4. Once finished reboot your Mac
+
+### On Linux / Raspberry Pi
+
+Optional Dependency node-usb will not be installed. So, run:
+```
+sudo apt-get install libudev-dev
+```
+
+### On Windows
+
+Node.js server is currently not supported on Windows. However, you can run the Node.js server on a Linux device change
+`edu.oswego.cs.CPSLab.AnkiConnectionTest` to connect to the IP of the Raspberry Pi instead of `localhost`.
 
 ## Usage
 
 Start the Node.js gateway service:
 ```
-./gradlew npm_run
+sudo ./gradlew server
 ```
 
 ### Add the Java library
@@ -55,11 +89,11 @@ repositories {
 
 dependencies {
     // <Git commit-ish>: commit hash or tag
-    compile 'com.github.adessoAG:anki-drive-java:<Git commit-ish>'
+    compile 'com.github.tenbergen:anki-drive-java:-SNAPSHOT'
 }
 ```
 
-For the Maven instructions see the [JitPack.io website](https://jitpack.io/#adessoAG/anki-drive-java).
+For the Maven instructions see the [JitPack.io website](https://jitpack.io/tenbergen/anki-drive-java).
 
 ### API usage
 
@@ -73,7 +107,19 @@ Start scanning for vehicles:
 List<Vehicle> vehicles = anki.findVehicles();
 ```
 
+### Test File
+To try a connection, start the server and run:
+```
+./gradlew ankiConnectionTest
+```
+which will execute
+```java
+edu.oswego.cs.CPSLab.AnkiConnectionTest
+```
+
 ## Contributing
 
-Contributions are always welcome! Feel free to fork this repository and submit
+WINDOWS SERVER WANTED!
+
+Other contributions are welcome as well. Feel free to fork this repository and submit
 a pull request.

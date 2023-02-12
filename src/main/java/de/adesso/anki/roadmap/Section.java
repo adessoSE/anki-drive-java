@@ -2,10 +2,27 @@ package de.adesso.anki.roadmap;
 
 import de.adesso.anki.roadmap.roadpieces.Roadpiece;
 
-public class Section {
+import java.io.Serializable;
+
+/**
+ * Section object used to differentiate reversed and regular roadpieces, curves, and intersections from one another
+ * Entering the same Section using a Roadpiece might have different entry and exist positions.
+ * This is mostly relevant for curves as well as intersections, e.g., left curves will be ReverseSections, and right
+ * curves will be regular Sections.
+ * This is the original adesso version, but updated with a Serializable marker and SerialVersionUID for saving Roadmaps.
+ *
+ * @since 2016-12-13
+ * @version 2020-05-12
+ * @author adesso AG
+ * @author Bastian Tenbergen (bastian.tenbergen@oswego.edu)
+ */
+public class Section implements Serializable {
   private Roadpiece piece;
-  
+
   private Position entry;
+
+  private boolean isReversed = false;
+  private static final long serialVersionUID = -2053150693350041204L;
   
   protected Section() { }
   
@@ -57,7 +74,5 @@ public class Section {
     other.getPiece().setPosition(otherPos);
   }
   
-  public Section reverse() {
-    return new ReverseSection(this);
-  }
+  public Section reverse() { return new ReverseSection(this); }
 }

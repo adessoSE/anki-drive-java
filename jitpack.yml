@@ -1,0 +1,14 @@
+sudo: required
+dist: trusty
+addons:
+  apt:
+    packages:
+    - libudev-dev
+
+before_install:
+  - apt-get update
+  - apt-get install -y libudev-dev
+
+language: java
+jdk:
+  - openjdk8

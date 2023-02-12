@@ -1,3 +1,7 @@
+before_install:
+ - sudo apt-get update
+ - sudo apt-get install -y libudev-dev
+
 language: java
 jdk:
-  - oraclejdk8
+  - openjdk8

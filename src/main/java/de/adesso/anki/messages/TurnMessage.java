@@ -18,6 +18,11 @@ public class TurnMessage extends Message {
     this.type = TYPE;
   }
   
+  /**
+   * Allows the user to request the vehicle to turn. Currently, according to the manufacturer's API, only U-turns (180deg turns) are supported by the ANKI vehicles.
+   * @param turnType The "type" of turn. U-Turns are type 3. Other types currently unkown.
+   * @param trigger When to turn. "1" means immediately, "0" means upon transition to next RoadPiece.
+   */
   public TurnMessage(int turnType, int trigger) {
     this();
     

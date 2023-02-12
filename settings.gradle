@@ -1,0 +1,2 @@
+rootProject.name = 'anki-drive-java'
+include ':Library'

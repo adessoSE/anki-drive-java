@@ -1,5 +1,5 @@
 var net = require('net');
-var noble = require('noble-mac');
+var noble = require('noble');
 var util = require('util');
 
 var server = net.createServer(function(client) {
@@ -16,11 +16,9 @@ var server = net.createServer(function(client) {
 	    console.log(command)
 	  switch(command[0])
 	  {
-          case "SCAN":
+	    case "SCAN":
 	      console.log(noble);
-// Bastian Tenbergen: removed - node never seems to show this state.
-// However, causes AnkiConnector to get NullPointerExceptions sometimes.
-//	      if (noble.state === 'poweredOn') {
+	      if (noble.state === 'poweredOn') {
 	        var discover = function(device) {
                                 //Peter Muir: edited to more reliably connect to the cars. Hardcoded localName
 				//and txPowerLevel. Should change to a dynamic setup if necessary.
@@ -42,7 +40,7 @@ var server = net.createServer(function(client) {
 	          client.write(util.format("SCAN;%s;%s;%s\n",
 	              device.id,
 	              device.advertisement.manufacturerData.toString('hex'),
-	              Buffer.from(device.advertisement.localName).toString('hex')));
+	              new Buffer(device.advertisement.localName).toString('hex')));
 	        };
 	
 	        noble.on('discover', discover);
@@ -53,10 +51,10 @@ var server = net.createServer(function(client) {
 	           noble.removeListener('discover', discover)
 	           client.write("SCAN;COMPLETED\n");
 	        }, 2000);
-//	      }
-//	      else {
-//	        client.write("SCAN;ERROR\n");
-//	      }
+	      }
+	      else {
+	        client.write("SCAN;ERROR\n");
+	      }
 	      break;
 	      
 	    case "CONNECT":
@@ -125,9 +123,8 @@ var server = net.createServer(function(client) {
 	    
 	    default:
 	      if (command.length == 2 && noble._peripherals[command[0]] !== undefined) {
-					var vehicle = noble._peripherals[command[0]];
-					var buffer = Buffer.from(command[1], 'hex');
-					vehicle.writer.write(buffer, true);
+	        var vehicle = noble._peripherals[command[0]];
+	        vehicle.writer.write(new Buffer(command[1], 'hex'));
 	      }
 	  }
 	});
